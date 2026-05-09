@@ -169,12 +169,9 @@ def t(uid, key, **kwargs):
 
 def main_menu(uid):
     kb = [
-        [InlineKeyboardButton('📋 Мои реквизиты', callback_data='menu_req')],
-        [InlineKeyboardButton('📝 Создать сделку', callback_data='menu_deal')],
-        [InlineKeyboardButton('💰 Баланс', callback_data='menu_balance')],
-        [InlineKeyboardButton('📚 Мои сделки', callback_data='menu_deals')],
-        [InlineKeyboardButton('👥 Рефералы', callback_data='menu_refs')],
-        [InlineKeyboardButton('🌐 Язык / Lang', callback_data='menu_lang')],
+        [InlineKeyboardButton('📋 Мои реквизиты', callback_data='menu_req'), InlineKeyboardButton('📝 Создать сделку', callback_data='menu_deal')],
+        [InlineKeyboardButton('💰 Баланс', callback_data='menu_balance'), InlineKeyboardButton('📚 Мои сделки', callback_data='menu_deals')],
+        [InlineKeyboardButton('👥 Рефералы', callback_data='menu_refs'), InlineKeyboardButton('🌐 Язык / Lang', callback_data='menu_lang')],
         [InlineKeyboardButton('📞 Техподдержка', callback_data='menu_support')]
     ]
     return InlineKeyboardMarkup(kb)
