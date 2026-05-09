@@ -112,7 +112,7 @@ async def callback(call):
                 [InlineKeyboardButton('₿ BTC-кошелёк', callback_data='set_btc')],
                 [InlineKeyboardButton('📌 Назад в меню', callback_data='back_main')]
             ]
-            await bot.send_message(cid, text, reply_markup=InlineKeyboardMarkup(kb))
+            await bot.send_photo(cid, LOGO_URL, caption=text, reply_markup=InlineKeyboardMarkup(kb))
         
         elif data == 'set_ton':
             user_states[uid] = {'step': 'setting_ton'}
@@ -135,7 +135,7 @@ async def callback(call):
                 [InlineKeyboardButton('✅ Я продавец', callback_data='deal_seller'), InlineKeyboardButton('❌ Я покупатель', callback_data='deal_buyer')],
                 [InlineKeyboardButton('📌 Назад в меню', callback_data='back_main')]
             ]
-            await bot.send_message(cid, """📝 Новая сделка
+            await bot.send_photo(cid, LOGO_URL, caption="""📝 Новая сделка
 
 > Кем вы выступаете в этой сделке?
 
@@ -150,7 +150,7 @@ async def callback(call):
                 [InlineKeyboardButton('🔙 Назад', callback_data='menu_deal')]
             ]
             text = '1️⃣ Способ получения оплаты:\nКак покупатель переведёт средства?' if data == 'deal_seller' else '1️⃣ Способ оплаты:\nКаким способом вы хотите оплатить?'
-            await bot.send_message(cid, text, reply_markup=InlineKeyboardMarkup(kb))
+            await bot.send_photo(cid, LOGO_URL, caption=text, reply_markup=InlineKeyboardMarkup(kb))
         
         elif data in ['pay_card', 'pay_stars', 'pay_crypto']:
             method = data.replace('pay_', '')
@@ -182,10 +182,10 @@ async def callback(call):
                 [InlineKeyboardButton('💸 Вывод средств', callback_data='withdraw'), InlineKeyboardButton('📋 Транзакции', callback_data='transactions')],
                 [InlineKeyboardButton('📌 Назад в меню', callback_data='back_main')]
             ]
-            await bot.send_message(cid, text, reply_markup=InlineKeyboardMarkup(kb))
+            await bot.send_photo(cid, LOGO_URL, caption=text, reply_markup=InlineKeyboardMarkup(kb))
         
         elif data == 'menu_deals':
-            await bot.send_message(cid, '📚 Мои сделки\n\n📝 Всего: 0\n✅ Завершено: 0', reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton('🔍 Поиск по коду', callback_data='search_deal'), InlineKeyboardButton('📌 Назад в меню', callback_data='back_main')]]))
+            await bot.send_photo(cid, LOGO_URL, caption='📚 Мои сделки\n\n📝 Всего: 0\n✅ Завершено: 0', reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton('🔍 Поиск по коду', callback_data='search_deal'), InlineKeyboardButton('📌 Назад в меню', callback_data='back_main')]]))
         
         elif data == 'search_deal':
             user_states[uid] = {'step': 'search_deal'}
@@ -203,7 +203,7 @@ async def callback(call):
             kb = [
                 [InlineKeyboardButton('📋 Скопировать реф. ссылку', callback_data='copy_ref'), InlineKeyboardButton('📌 Назад в меню', callback_data='back_main')]
             ]
-            await bot.send_message(cid, text, reply_markup=InlineKeyboardMarkup(kb))
+            await bot.send_photo(cid, LOGO_URL, caption=text, reply_markup=InlineKeyboardMarkup(kb))
         
         elif data == 'copy_ref':
             u = get_user(uid)
@@ -211,21 +211,21 @@ async def callback(call):
             await bot.send_photo(cid, LOGO_URL, caption=WELCOME, reply_markup=main_menu(uid))
         
         elif data == 'menu_lang':
-            await bot.send_message(cid, '🌐 Выберите язык:', reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton('🇷🇺 Русский', callback_data='lang_ru'), InlineKeyboardButton('🇬🇧 English', callback_data='lang_en')], [InlineKeyboardButton('📌 Назад в меню', callback_data='back_main')]]))
+            await bot.send_photo(cid, LOGO_URL, caption='🌐 Выберите язык:', reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton('🇷🇺 Русский', callback_data='lang_ru'), InlineKeyboardButton('🇬🇧 English', callback_data='lang_en')], [InlineKeyboardButton('📌 Назад в меню', callback_data='back_main')]]))
         
         elif data in ['lang_ru', 'lang_en']:
             await bot.send_message(cid, '✅ Язык изменён!')
             await bot.send_photo(cid, LOGO_URL, caption=WELCOME, reply_markup=main_menu(uid))
         
         elif data == 'menu_support':
-            await bot.send_message(cid, '📞 По всем вопросам обращайтесь к менеджеру: @SupOTC', reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton('📌 Назад в меню', callback_data='back_main')]]))
+            await bot.send_photo(cid, LOGO_URL, caption='📞 По всем вопросам обращайтесь к менеджеру: @SupOTC', reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton('📌 Назад в меню', callback_data='back_main')]]))
         
         elif data == 'withdraw':
             user_states[uid] = {'step': 'withdraw'}
             await bot.send_message(cid, '💸 Введите сумму для вывода (минимум 1 TON):', reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton('📌 Назад', callback_data='menu_balance')]]))
         
         elif data == 'transactions':
-            await bot.send_message(cid, '📋 У вас пока нет транзакций.', reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton('📌 Назад', callback_data='menu_balance')]]))
+            await bot.send_photo(cid, LOGO_URL, caption='📋 У вас пока нет транзакций.', reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton('📌 Назад', callback_data='menu_balance')]]))
     
     except Exception as e:
         logger.error(f"Callback error: {e}")
