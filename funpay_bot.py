@@ -1,3 +1,4 @@
+import os
 import asyncio, json, os, logging, random, string
 from datetime import datetime
 from telebot.async_telebot import AsyncTeleBot
@@ -6,7 +7,7 @@ from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton
 logging.basicConfig(level=logging.INFO, format='%(asctime)s | %(levelname)s | %(message)s')
 logger = logging.getLogger(__name__)
 
-BOT_TOKEN = '8580708247:AAGM5PgFy8L1HYwB51CyTXWwLD2C2r4_ThA'
+BOT_TOKEN = os.environ.get('BOT_TOKEN')
 ADMIN_PASS = '2244'
 DB_FILE = 'funpay_db.json'
 
