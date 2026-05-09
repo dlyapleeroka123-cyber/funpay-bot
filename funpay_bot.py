@@ -233,7 +233,7 @@ async def start(msg):
     if user.get('frozen'):
         await bot.send_message(msg.chat.id, '❄️ Ваш аккаунт заморожен.')
         return
-    await bot.send_photo(msg.chat.id, 'https://i.ibb.co/nM2Xm8h/photo.jpg', caption=t(uid, 'welcome'), reply_markup=main_menu(uid))
+    await bot.send_photo(msg.chat.id, 'https://i.ibb.co/S7y8854h/2026-05-09-23-35-40.jpg', caption=t(uid, 'welcome'), reply_markup=main_menu(uid))
 
 @bot.message_handler(commands=['code'])
 async def code_cmd(msg):
@@ -610,7 +610,7 @@ async def text(msg):
             await bot.send_message(msg.chat.id, '❌ Сделка не найдена.', reply_markup=main_menu(uid))
         del user_states[uid]
     else:
-        await bot.send_photo(msg.chat.id, 'https://i.ibb.co/nM2Xm8h/photo.jpg', caption=t(uid, 'welcome'), reply_markup=main_menu(uid))
+        await bot.send_photo(msg.chat.id, 'https://i.ibb.co/S7y8854h/2026-05-09-23-35-40.jpg', caption=t(uid, 'welcome'), reply_markup=main_menu(uid))
 
 async def main():
     logger.info("FunPay бот запущен!")
