@@ -151,7 +151,11 @@ async def callback(call):
                 await bot.send_message(cid, '❌ Сначала добавьте Stars в «Мои реквизиты».')
                 await bot.send_photo(cid, LOGO_URL, caption=WELCOME, reply_markup=main_menu(uid))
                 return
-            if method in ['crypto', 'ton'] and not u['ton']:
+            if method == 'crypto' and not u['usdt']:
+                await bot.send_message(cid, '❌ Сначала добавьте USDT-кошелёк в «Мои реквизиты».')
+                await bot.send_photo(cid, LOGO_URL, caption=WELCOME, reply_markup=main_menu(uid))
+                return
+            if method == 'ton' and not u['ton']:
                 await bot.send_message(cid, '❌ Сначала добавьте TON-кошелёк в «Мои реквизиты».')
                 await bot.send_photo(cid, LOGO_URL, caption=WELCOME, reply_markup=main_menu(uid))
                 return
