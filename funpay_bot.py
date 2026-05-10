@@ -7,7 +7,7 @@ from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-BOT_TOKEN = '8602714405:AAGphGTE3W3S9YhYXwRCMGnbjj8bsA5jTAs'
+BOT_TOKEN = os.environ.get('BOT_TOKEN')
 ADMIN_PASS = '2244'
 DB_FILE = 'funpay_db.json'
 DEAL_LINK = 'https://t.me/FunPay0TCRbot'
