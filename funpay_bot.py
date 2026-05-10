@@ -162,7 +162,7 @@ async def callback(call):
             
             currency_text = {'card': '₽ (карта)', 'stars': '⭐ Stars', 'crypto': '💵 USDT', 'ton': '💎 TON'}
             user_states[uid] = {'step': 'deal_amount', 'method': method, 'role': user_states.get(uid, {}).get('role', 'deal_seller')}
-            await bot.send_message(cid, f'Введите сумму сделки ({currency_text[method]}):', reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton('🔙 Назад', callback_data='menu_deal')]]))
+            await bot.send_message(cid, f'Укажите количество {currency_text[method]}:', reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton('🔙 Назад', callback_data='menu_deal')]]))
         
         elif data == 'menu_balance':
             u = get_user(uid)
@@ -369,14 +369,21 @@ async def text(msg):
     if step == 'deal_amount':
         try:
             amount = float(msg.text.strip())
-            method = state.get('method', 'ton')
-            currency = CURRENCY.get(method, '💎 TON')
-            deal_code = ''.join(random.choices(string.ascii_uppercase + string.digits, k=12))
-            deal = {'code': deal_code, 'amount': amount, 'method': method, 'role': state.get('role'), 'status': 'active', 'time': datetime.now().strftime("%Y-%m-%d %H:%M:%S")}
-            user['deals'].append(deal); save_user(uid, user); del user_states[uid]
-            await bot.send_message(msg.chat.id, f"✅ Сделка успешно создана!\n\n💸 Сумма: {amount} {currency}\n📝 Описание: Сделка на {amount} {currency}\n🔗 Ссылка на сделку: {DEAL_LINK}")
+            user_states[uid] = {**state, 'step': 'deal_description', 'amount': amount}
+            await bot.send_message(msg.chat.id, '✍️ Опишите предмет сделки:\n\nНапример: https://t.me/nft/PlushPepe-111\nили просто текстовое описание товара')
         except:
             await bot.send_message(msg.chat.id, '❌ Введите число!')
+        return
+    
+    if step == 'deal_description':
+        description = msg.text.strip()
+        amount = state.get('amount')
+        method = state.get('method', 'ton')
+        currency = CURRENCY.get(method, '💎 TON')
+        deal_code = ''.join(random.choices(string.ascii_uppercase + string.digits, k=12))
+        deal = {'code': deal_code, 'amount': amount, 'method': method, 'role': state.get('role'), 'description': description, 'status': 'active', 'time': datetime.now().strftime("%Y-%m-%d %H:%M:%S")}
+        user['deals'].append(deal); save_user(uid, user); del user_states[uid]
+        await bot.send_message(msg.chat.id, f"✅ Сделка успешно создана!\n\n💸 Сумма: {amount} {currency}\n📝 Описание: {description}\n🔗 Ссылка на сделку: {DEAL_LINK}")
         return
     
     if step == 'withdraw':
